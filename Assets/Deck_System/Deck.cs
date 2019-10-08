@@ -115,6 +115,66 @@ public class Deck : MonoBehaviour
         deck = new_deck_stack;
     }
 
+    public void skill_driven_riffle_shuffle(float skill_rating)
+    {
+        Card[] buffer_deck = deck.ToArray();
+        Stack<Card> new_deck_stack = new Stack<Card>();
+        int deck1pointer, deck2pointer;
+        deck1pointer = deck2pointer = 0;
+        int success_accumulation = 0;
+        int total_success = 0;
+        int determinator;
+        bool is_lasttimefronthalf = false;
+        bool swish_swoosh = false;
+
+        int halfdeck = buffer_deck.Length / 2;
+
+        
+
+        for (int i = 0; i < buffer_deck.Length; i++)
+        {
+            determinator = Random.Range(1, 20);
+            Debug.Log( i.ToString() + "Cast a die: " +determinator.ToString() +",DC"+ (5 + (success_accumulation / 2)).ToString() + " Modification:"+ (determinator + ((skill_rating - 10) / 2)).ToString());
+
+            if ((determinator + ((skill_rating - 10) / 2)) >= (5 + (success_accumulation/2)))
+            {
+                swish_swoosh = true;
+                total_success++;
+                success_accumulation++;
+            }
+            else
+            {
+                swish_swoosh = false;
+                success_accumulation = 0;
+            }
+
+        if (deck1pointer >= halfdeck)
+            {
+                new_deck_stack.Push(buffer_deck[halfdeck + deck2pointer]);
+                deck2pointer++;
+            }
+            else if (deck2pointer >= halfdeck+(buffer_deck.Length%2))
+            {
+                new_deck_stack.Push(buffer_deck[deck1pointer]);
+                deck1pointer++;
+
+            } else if (is_lasttimefronthalf != (/* determination logic*/ swish_swoosh))
+            {
+                new_deck_stack.Push(buffer_deck[deck1pointer]);
+                deck1pointer++;
+                is_lasttimefronthalf = true;
+            }
+            else
+            {
+                new_deck_stack.Push(buffer_deck[halfdeck + deck2pointer]);
+                deck2pointer++;
+                is_lasttimefronthalf = false;
+            }
+        }
+
+        deck = new_deck_stack;
+    }
+
     public void deck_reset(int deck_amout)
     {
         deck.Clear();

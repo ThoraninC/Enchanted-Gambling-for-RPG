@@ -17,6 +17,8 @@ public class Card_spreader : MonoBehaviour
         laypoint = gameObject.transform;
         laypoint.position = new Vector3(0,0,1);
         layorder = 0;
+        dec.skill_driven_riffle_shuffle(20);
+        //dec.riffle_shuffle();
     }
 
     // Update is called once per frame
@@ -35,7 +37,7 @@ public class Card_spreader : MonoBehaviour
 
             a.transform.position = laypoint.position;
             laypoint.position = new Vector3(laypoint.position.x + 1.0f, laypoint.position.y, laypoint.position.z);
-            dec.insert_shuffle();
+            //dec.skill_ridden_riffle_shuffle(7);
             crd.drawform(dec);
             layorder++;
             sprd.sortingOrder = layorder;
