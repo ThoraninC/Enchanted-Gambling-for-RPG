@@ -130,7 +130,7 @@ public class Deck : MonoBehaviour
         int halfdeck = buffer_deck.Length / 2;
 
         
-
+        //oi-itsame-who-upload-it
         for (int i = 0; i < buffer_deck.Length; i++)
         {
             determinator = Random.Range(1, 20);
